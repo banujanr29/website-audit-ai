@@ -25,6 +25,44 @@ import java.util.List;
 public class GlobalExceptionHandler {
 
     // ---------------------------------------------------------------
+    // Domain-specific scraper exceptions
+    // ---------------------------------------------------------------
+
+    @ExceptionHandler(InvalidUrlException.class)
+    public ResponseEntity<ApiError> handleInvalidUrl(
+            InvalidUrlException ex,
+            HttpServletRequest request) {
+
+        log.warn("Invalid URL for request [{}]: {}", request.getRequestURI(), ex.getMessage());
+
+        ApiError error = ApiError.builder()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity.badRequest().body(error);
+    }
+
+    @ExceptionHandler(WebsiteFetchException.class)
+    public ResponseEntity<ApiError> handleWebsiteFetch(
+            WebsiteFetchException ex,
+            HttpServletRequest request) {
+
+        log.error("Failed to fetch website for request [{}]: {}", request.getRequestURI(), ex.getMessage(), ex);
+
+        ApiError error = ApiError.builder()
+                .status(HttpStatus.BAD_GATEWAY.value())
+                .error(HttpStatus.BAD_GATEWAY.getReasonPhrase())
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(error);
+    }
+
+    // ---------------------------------------------------------------
     // Validation errors — @Valid / @Validated on request bodies
     // ---------------------------------------------------------------
 
