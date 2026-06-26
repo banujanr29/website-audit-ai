@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+:root {
+  --background: #09090b; /* zinc-950 */
+  --foreground: #fafafa; /* zinc-50 */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+  /* Premium radial gradient overlay for SaaS feel */
+  background-image: radial-gradient(circle at top center, rgba(120, 119, 198, 0.1), transparent 40%);
+  background-attachment: fixed;
+}

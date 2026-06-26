@@ -34,6 +34,7 @@ Thumbs.db
 *.bak
 *.orig
 
+<<<<<<< HEAD
 # Next.js
 frontend/.next/
 frontend/.vercel/
@@ -45,3 +46,7 @@ frontend/.env.production
 
 # Next.js generated file (optional)
 # next-env.d.ts should normally be committed
+=======
+
+.env
+>>>>>>> feature/frontend
