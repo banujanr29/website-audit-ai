@@ -28,4 +28,7 @@ public class AuditScoreResponse {
 
     /** Call-to-action effectiveness score. */
     Double cta;
+
+    /** Image optimization score. */
+    Double images;
 }
