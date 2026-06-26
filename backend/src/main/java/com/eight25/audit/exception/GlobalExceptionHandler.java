@@ -63,6 +63,27 @@ public class GlobalExceptionHandler {
     }
 
     // ---------------------------------------------------------------
+    // AI Integration errors
+    // ---------------------------------------------------------------
+
+    @ExceptionHandler(GeminiIntegrationException.class)
+    public ResponseEntity<ApiError> handleGeminiIntegration(
+            GeminiIntegrationException ex,
+            HttpServletRequest request) {
+
+        log.error("Gemini AI integration failed for request [{}]: {}", request.getRequestURI(), ex.getMessage(), ex);
+
+        ApiError error = ApiError.builder()
+                .status(HttpStatus.SERVICE_UNAVAILABLE.value())
+                .error(HttpStatus.SERVICE_UNAVAILABLE.getReasonPhrase())
+                .message("AI analysis is currently unavailable. Please try again later.")
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(error);
+    }
+
+    // ---------------------------------------------------------------
     // Validation errors — @Valid / @Validated on request bodies
     // ---------------------------------------------------------------
 
