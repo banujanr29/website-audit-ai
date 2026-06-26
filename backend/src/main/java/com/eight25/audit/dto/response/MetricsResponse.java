@@ -53,9 +53,15 @@ public class MetricsResponse {
 
     // ── SEO meta ─────────────────────────────────────────────────
 
-    /** Content of the {@code <title>} tag; {@code null} if absent. */
+    /** Content of the {@code <title>} tag; {@code "Not Available"} if absent. */
     String metaTitle;
 
-    /** Content of the {@code <meta name="description">} tag; {@code null} if absent. */
+    /** Content of the {@code <meta name="description">} tag; {@code "Not Available"} if absent. */
     String metaDescription;
+
+    /**
+     * Value of the {@code lang} attribute on the {@code <html>} element
+     * (e.g. {@code "en"}, {@code "en-US"}); {@code "Not Available"} if absent.
+     */
+    String language;
 }
