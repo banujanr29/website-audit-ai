@@ -8,8 +8,6 @@
 
 PagePulse AI is a full-stack web application that analyzes a single webpage and produces a comprehensive audit report. The system extracts factual website metrics using deterministic analysis and then leverages Google Gemini AI to generate structured insights and prioritized recommendations.
 
-The project was built as part of the **AI-Native Software Engineer Assignment** for EIGHT25MEDIA.
-
 ---
 
 ## 🌐 Live Demo
@@ -219,10 +217,8 @@ website-audit-ai
 │   ├── controller
 │   ├── dto
 │   ├── exception
-│   ├── parser
-│   ├── scoring
 │   ├── service
-│   └── prompt
+│   └── util
 │
 ├── frontend
 │   ├── app
@@ -332,27 +328,27 @@ NEXT_PUBLIC_API_URL=http://localhost:8080/api
 
 ## Landing Page
 
-> Add screenshot
-
-docs/images/LandingPage.png
+![Landing Page](docs/images/LandingPage.png)
 
 ---
 
-## Audit Dashboard
+## Loading
 
-> Add screenshot
+![Loading](docs/images/Loading.png)
 
 ---
 
 ## AI Insights
 
-> Add screenshot
-
----
+## ![AI Insights](docs/images/AIInsights.png)
 
 ## Prompt Logs
 
-> Add screenshot
+![Prompt Logs](docs/images/DevMode.png)
+
+## Overall Score
+
+![Overall Score](docs/images/OverallScore.png)
 
 ---
 
