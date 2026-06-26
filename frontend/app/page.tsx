@@ -1,8 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Search, Zap, CheckCircle2, Layout, Accessibility, Loader2, AlertCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,6 +15,7 @@ import { MetricsGrid } from "@/components/audit/MetricsGrid";
 import { AIInsights } from "@/components/audit/AIInsights";
 import { Recommendations } from "@/components/audit/Recommendations";
 import { DeveloperDrawer } from "@/components/audit/DeveloperDrawer";
+import { LoadingState } from "@/components/audit/LoadingState";
 
 const auditSchema = z.object({
   url: z.string().url("Please enter a valid URL (e.g., https://example.com)"),
@@ -22,7 +25,18 @@ type AuditFormValues = z.infer<typeof auditSchema>;
 
 export default function LandingPage() {
   const { submitAudit, loading, error, response } = useAudit();
+  const [showDashboard, setShowDashboard] = useState(false);
   
+  useEffect(() => {
+    if (response && !loading) {
+      // Delay showing the dashboard to allow LoadingState fast-forward animation to finish
+      const timer = setTimeout(() => setShowDashboard(true), 1200);
+      return () => clearTimeout(timer);
+    } else {
+      setShowDashboard(false);
+    }
+  }, [response, loading]);
+
   const {
     register,
     handleSubmit,
@@ -148,8 +162,24 @@ export default function LandingPage() {
             </div>
           </motion.div>
 
+          {/* Loading State Overlay */}
+          <AnimatePresence>
+            {(loading || (response && !showDashboard)) && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto"
+              >
+                <div className="w-full max-w-2xl m-auto">
+                  <LoadingState loading={loading} />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           {/* Audit Dashboard Container */}
-          {response && (
+          {showDashboard && response && (
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -158,7 +188,7 @@ export default function LandingPage() {
             >
               {/* Top Section: Score & Metrics */}
               <div className="flex flex-col gap-8 w-full">
-                <ScoreOverview score={response.score} />
+                <ScoreOverview score={response.score} url={response.url} />
                 <MetricsGrid metrics={response.metrics} />
               </div>
 
