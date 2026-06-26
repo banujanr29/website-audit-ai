@@ -61,20 +61,14 @@ public class WebsiteScoreCalculatorImpl implements WebsiteScoreCalculator {
         int wordCount = metrics.getWordCount() != null ? metrics.getWordCount() : 0;
 
         if (wordCount > 1000) {
-            score += 25;
+            score += 20;
         } else if (wordCount > 300) {
             score += 10;
         }
 
-        int h1 = metrics.getH1Count() != null ? metrics.getH1Count() : 0;
-        int h2 = metrics.getH2Count() != null ? metrics.getH2Count() : 0;
         int h3 = metrics.getH3Count() != null ? metrics.getH3Count() : 0;
 
         if (h3 >= 1) {
-            score += 5;
-        }
-
-        if ((h1 + h2 + h3) > 2) {
             score += 5;
         }
 
