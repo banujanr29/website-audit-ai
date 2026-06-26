@@ -1,4 +1,5 @@
 import axios from "axios";
+import type { AuditRequest, AuditResponse } from "@/types/audit";
 
 export const api = axios.create({
   baseURL:
@@ -9,3 +10,10 @@ export const api = axios.create({
     Accept: "application/json",
   },
 });
+
+export const auditApi = {
+  analyze: async (request: AuditRequest): Promise<AuditResponse> => {
+    const response = await api.post<AuditResponse>("/audit", request);
+    return response.data;
+  },
+};

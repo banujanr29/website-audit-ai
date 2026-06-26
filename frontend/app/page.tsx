@@ -8,6 +8,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useAudit } from "@/hooks/useAudit";
+import { ScoreOverview } from "@/components/audit/ScoreOverview";
+import { MetricsGrid } from "@/components/audit/MetricsGrid";
+import { AIInsights } from "@/components/audit/AIInsights";
+import { Recommendations } from "@/components/audit/Recommendations";
+import { DeveloperDrawer } from "@/components/audit/DeveloperDrawer";
 
 const auditSchema = z.object({
   url: z.string().url("Please enter a valid URL (e.g., https://example.com)"),
@@ -143,22 +148,34 @@ export default function LandingPage() {
             </div>
           </motion.div>
 
-          {/* Temporary Response JSON Card */}
+          {/* Audit Dashboard Container */}
           {response && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              className="w-full max-w-4xl text-left bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl mt-8"
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="w-full max-w-6xl mt-12 space-y-12 text-left"
             >
-              <div className="px-6 py-4 border-b border-zinc-800 bg-zinc-900/50">
-                <h3 className="font-semibold text-zinc-200">Raw Audit Response</h3>
-                <p className="text-xs text-zinc-500">Temporarily displayed until dashboard is built.</p>
+              {/* Top Section: Score & Metrics */}
+              <div className="flex flex-col gap-8 w-full">
+                <ScoreOverview score={response.score} />
+                <MetricsGrid metrics={response.metrics} />
               </div>
-              <div className="p-6 overflow-auto max-h-[500px]">
-                <pre className="text-xs text-zinc-300 font-mono">
-                  {JSON.stringify(response, null, 2)}
-                </pre>
+
+              {/* Middle Section: AI Insights */}
+              <div className="pt-6 border-t border-zinc-800/50">
+                <AIInsights insights={response.insights} />
               </div>
+
+              {/* Bottom Section: Priority Recommendations */}
+              <div className="pt-6 border-t border-zinc-800/50">
+                <Recommendations recommendations={response.recommendations} />
+              </div>
+
+              {/* Developer & Prompt Logs */}
+              {response.promptLogs && (
+                <DeveloperDrawer logs={response.promptLogs} />
+              )}
             </motion.div>
           )}
 
