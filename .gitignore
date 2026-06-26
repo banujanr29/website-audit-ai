@@ -1,0 +1,52 @@
+# ── Maven / Java ─────────────────────────────────────────────
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Spring Boot DevTools
+.spring-boot-devtools.properties
+
+# ── Node / Frontend ──────────────────────────────────────────
+node_modules/
+dist/
+dist-ssr/
+*.local
+.env.local
+.env.production
+
+# ── IDEs ─────────────────────────────────────────────────────
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── Misc ─────────────────────────────────────────────────────
+*.tmp
+*.bak
+*.orig
+
+<<<<<<< HEAD
+# Next.js
+frontend/.next/
+frontend/.vercel/
+frontend/out/
+
+# Environment files
+frontend/.env.local
+frontend/.env.production
+
+# Next.js generated file (optional)
+# next-env.d.ts should normally be committed
+=======
+
+.env
+>>>>>>> feature/frontend
