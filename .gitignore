@@ -33,3 +33,15 @@ Thumbs.db
 *.tmp
 *.bak
 *.orig
+
+# Next.js
+frontend/.next/
+frontend/.vercel/
+frontend/out/
+
+# Environment files
+frontend/.env.local
+frontend/.env.production
+
+# Next.js generated file (optional)
+# next-env.d.ts should normally be committed
